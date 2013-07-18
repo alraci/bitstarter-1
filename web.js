@@ -1,7 +1,11 @@
 var express = require('express'),
     fs = require("fs");
 
-var app = express.createServer(express.logger());
+var app = express.createServer();
+app.configure(function() {
+    app.use(express.logger());
+    app.use(express.static(__dirname + "/public"));
+});
 
 app.get('/', function(request, response) {
   response.send(fs.readFileSync("index.html").toString());
